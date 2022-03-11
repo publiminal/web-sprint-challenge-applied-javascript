@@ -1,4 +1,6 @@
-const Card = (article) => {
+import axios from "axios";
+
+const Card = ({ headline, authorPhoto, authorName }) => {
   // TASK 5
   // ---------------------
   // Implement this function, which should return the markup you see below.
@@ -16,7 +18,41 @@ const Card = (article) => {
   //     <span>By { authorName }</span>
   //   </div>
   // </div>
-  //
+  // console.log('CARD' )
+
+  const card = document.createElement('div')
+  const headLine = document.createElement('div')
+  const author = document.createElement('div')
+  const imgContainer = document.createElement('div')
+  const img = document.createElement('img')
+  const span = document.createElement('span')
+
+  card.classList.add('card')
+  headLine.classList.add('headline')
+  author.classList.add('author')
+  imgContainer.classList.add('img-container')
+
+  card.appendChild(headLine)
+  card.appendChild(author)
+  author.appendChild(imgContainer)
+  imgContainer.appendChild(img)
+  author.appendChild(span)
+
+  headLine.textContent = headline
+  img.src = authorPhoto
+  span.textContent = `By ${authorName}`
+
+
+  function onClickCard() {
+    console.log('headline' , headline)
+  }
+
+
+  card.addEventListener('click' , onClickCard)
+
+  // card.listClass.add('card')
+  // console.log('card ', card)
+  return card
 }
 
 const cardAppender = (selector) => {
@@ -28,6 +64,54 @@ const cardAppender = (selector) => {
   // Create a card from each and every article object in the response, using the Card component.
   // Append each card to the element in the DOM that matches the selector passed to the function.
   //
+  // console.log('parent', parent.parentNode  )
+  // parent.appendChild(Header({headline:'Lambda Times', authorPhoto:'JANUARY 6, 2021', authorName:'26°'} ))
+
+  function displayArticleByTopic(topicTitle, articlesByTopic) {
+    const parent = document.querySelector(selector)
+    // console.log('displayArticleByTopic : articlesByTopic ', articlesByTopic)
+    const __topicTitle = topicTitle
+    // console.log(articlesByTopic.length)
+    articlesByTopic.forEach(article => {
+      // console.log(`displayArticleByTopic ::  ${__topicTitle}:::::  `, article.headline )
+      // console.log('displayArticleByTopic')
+      // card = 
+      // console.log('card', card ); 
+      parent.appendChild(Card(article))
+
+    })
+  }
+
+  function onDataSuccess({ data, status }) {
+    console.log('onSucessAxios', status)
+    /* render the Card component */
+    // console.log('dataArticles', data.articles  );
+    // console.log('data' , data )
+    const topicTitles = Object.keys(data.articles)
+    // console.log('topicTitles' , topicTitles )
+    // console.log('topicTitles javascript' , data.articles[topicTitles[0]] )
+    topicTitles.forEach(topicTitle => {
+      const articlesByTopic = data.articles[topicTitle]
+      // console.log(` --------- ArticlesByTopic ${topicTitle} ` , articlesByTopic)
+      displayArticleByTopic(topicTitle, articlesByTopic)
+    })
+  }
+
+  function onDataFail({ response/* ,  message */ }) {
+    console.log('onFailAxios', response)
+  }
+
+  function doCallArticles() {
+    /* get external data  */
+    axios.get('http://localhost:5000/api/articles')
+      .then(res => onDataSuccess(res))
+      .catch(err => onDataFail(err))
+  }
+
+  doCallArticles()
+
+
+
 }
 
 export { Card, cardAppender }
