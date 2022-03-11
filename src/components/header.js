@@ -23,7 +23,7 @@ const Header = (title, date, temp ) => {
   header.classList.add('header')
   span1.classList.add('date')
   span2.classList.add('temp')
-debugger
+
   span1.textContent = date
   h1.textContent = title
   span2.textContent = temp
