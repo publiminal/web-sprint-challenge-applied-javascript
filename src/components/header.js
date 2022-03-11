@@ -1,4 +1,4 @@
-const Header = ({ title, date, temp }) => {
+const Header = (title, date, temp ) => {
   // TASK 1
   // ---------------------
   // Implement this function taking `title`, `date` and `temp` as its 3 args and returning the markup below.
@@ -11,7 +11,7 @@ const Header = ({ title, date, temp }) => {
   //    <span class="temp">{ temp }</span>
   //  </div>
   //
-  const header  = document.createElement('header')
+  const header  = document.createElement('div')
   const span1   = document.createElement('span')
   const h1      = document.createElement('h1')
   const span2   = document.createElement('span')
@@ -27,6 +27,7 @@ const Header = ({ title, date, temp }) => {
   span1.textContent = date
   h1.textContent = title
   span2.textContent = temp
+
   return header
 
   /* 
@@ -64,8 +65,8 @@ const headerAppender = (selector) => {
   //
   const parent = document.querySelector(selector)
   // console.log('parent', parent.parentNode  )
-  // parent.appendChild(Header({ title: 'Lambda Times', date: 'JANUARY 6, 2021', temp: '26°' }))
-  parent.appendChild(Header({title:'foo', date:'bar', temp:'baz'}) )
+  parent.appendChild(Header({ title:'Lambda Times', date:'JANUARY 6, 2021', temp:'26°' }))
+  // parent.appendChild(Header({title:'foo', date:'bar', temp:'baz'}) )
 }
 
 export { Header, headerAppender }
