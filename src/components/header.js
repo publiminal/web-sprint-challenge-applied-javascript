@@ -23,7 +23,7 @@ const Header = (title, date, temp ) => {
   header.classList.add('header')
   span1.classList.add('date')
   span2.classList.add('temp')
-
+debugger
   span1.textContent = date
   h1.textContent = title
   span2.textContent = temp
@@ -65,7 +65,7 @@ const headerAppender = (selector) => {
   //
   const parent = document.querySelector(selector)
   // console.log('parent', parent.parentNode  )
-  parent.appendChild(Header({ title:'Lambda Times', date:'JANUARY 6, 2021', temp:'26°' }))
+  parent.appendChild(Header( 'Lambda Times' ,'JANUARY 6, 2021','26°' ))
   // parent.appendChild(Header({title:'foo', date:'bar', temp:'baz'}) )
 }
 
