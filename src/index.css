@@ -222,6 +222,9 @@ body {
   letter-spacing: 1px;
   font-weight: bold;
 }
+.card-transition {
+	transition: opacity 1s ease;
+}
 .carousel {
   width: 100%;
   display: flex;
